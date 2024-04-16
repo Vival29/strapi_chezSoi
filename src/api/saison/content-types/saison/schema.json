@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "saisons",
+  "info": {
+    "singularName": "saison",
+    "pluralName": "saisons",
+    "displayName": "Saison"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "enumeration",
+      "enum": [
+        "spring",
+        "summer",
+        "fall",
+        "winter"
+      ]
+    },
+    "recipes": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::recipe.recipe",
+      "inversedBy": "saisons"
+    }
+  }
+}
