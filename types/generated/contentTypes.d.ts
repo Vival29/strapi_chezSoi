@@ -362,78 +362,6 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
-export interface ApiRecipeRecipe extends Schema.CollectionType {
-  collectionName: 'recipes';
-  info: {
-    singularName: 'recipe';
-    pluralName: 'recipes';
-    displayName: 'Recipe';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    Ingredients: Attribute.JSON;
-    RecipeName: Attribute.String & Attribute.Required & Attribute.Unique;
-    ImageRecipe: Attribute.Media;
-    saisons: Attribute.Relation<
-      'api::recipe.recipe',
-      'manyToMany',
-      'api::saison.saison'
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::recipe.recipe',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::recipe.recipe',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiSaisonSaison extends Schema.CollectionType {
-  collectionName: 'saisons';
-  info: {
-    singularName: 'saison';
-    pluralName: 'saisons';
-    displayName: 'Saison';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    name: Attribute.Enumeration<['spring', 'summer', 'fall', 'winter']>;
-    recipes: Attribute.Relation<
-      'api::saison.saison',
-      'manyToMany',
-      'api::recipe.recipe'
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::saison.saison',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::saison.saison',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -860,6 +788,83 @@ export interface PluginI18NLocale extends Schema.CollectionType {
   };
 }
 
+export interface ApiRecipeRecipe extends Schema.CollectionType {
+  collectionName: 'recipes';
+  info: {
+    singularName: 'recipe';
+    pluralName: 'recipes';
+    displayName: 'Recipe';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    recipeName: Attribute.String & Attribute.Required & Attribute.Unique;
+    imageRecipe: Attribute.Media;
+    seasons: Attribute.Relation<
+      'api::recipe.recipe',
+      'manyToMany',
+      'api::saison.saison'
+    >;
+    ingredients: Attribute.JSON;
+    stepsRecipe: Attribute.JSON;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::recipe.recipe',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::recipe.recipe',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiSaisonSaison extends Schema.CollectionType {
+  collectionName: 'saisons';
+  info: {
+    singularName: 'saison';
+    pluralName: 'saisons';
+    displayName: 'Season';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.Enumeration<
+      ['hiver', 'printemps', '\u00E9t\u00E9', 'automne']
+    >;
+    recipes: Attribute.Relation<
+      'api::saison.saison',
+      'manyToMany',
+      'api::recipe.recipe'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::saison.saison',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::saison.saison',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -870,8 +875,6 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
-      'api::recipe.recipe': ApiRecipeRecipe;
-      'api::saison.saison': ApiSaisonSaison;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;
@@ -880,6 +883,8 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'plugin::i18n.locale': PluginI18NLocale;
+      'api::recipe.recipe': ApiRecipeRecipe;
+      'api::saison.saison': ApiSaisonSaison;
     }
   }
 }
