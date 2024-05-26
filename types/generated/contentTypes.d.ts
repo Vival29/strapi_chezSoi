@@ -376,13 +376,13 @@ export interface ApiRecipeRecipe extends Schema.CollectionType {
   attributes: {
     recipeName: Attribute.String & Attribute.Required & Attribute.Unique;
     imageRecipe: Attribute.Media;
-    seasons: Attribute.Relation<
-      'api::recipe.recipe',
-      'manyToMany',
-      'api::saison.saison'
-    >;
     ingredients: Attribute.JSON;
     stepsRecipe: Attribute.JSON;
+    saison: Attribute.Relation<
+      'api::recipe.recipe',
+      'oneToOne',
+      'api::saison.saison'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -406,19 +406,17 @@ export interface ApiSaisonSaison extends Schema.CollectionType {
   info: {
     singularName: 'saison';
     pluralName: 'saisons';
-    displayName: 'saison';
+    displayName: 'Saison';
     description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    name: Attribute.String;
-    recipes: Attribute.Relation<
-      'api::saison.saison',
-      'manyToMany',
-      'api::recipe.recipe'
-    >;
+    saisonName: Attribute.Enumeration<
+      ['printemps', '\u00E9t\u00E9', 'automne', 'hiver']
+    > &
+      Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

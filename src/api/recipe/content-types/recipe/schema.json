@@ -28,17 +28,16 @@
         "audios"
       ]
     },
-    "seasons": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::saison.saison",
-      "inversedBy": "recipes"
-    },
     "ingredients": {
       "type": "json"
     },
     "stepsRecipe": {
       "type": "json"
+    },
+    "saison": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::saison.saison"
     }
   }
 }

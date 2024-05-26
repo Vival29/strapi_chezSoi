@@ -4,7 +4,7 @@
   "info": {
     "singularName": "saison",
     "pluralName": "saisons",
-    "displayName": "saison",
+    "displayName": "Saison",
     "description": ""
   },
   "options": {
@@ -12,20 +12,15 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "name": {
-      "type": "string",
+    "saisonName": {
+      "type": "enumeration",
       "enum": [
-        "hiver",
         "printemps",
         "été",
-        "automne"
-      ]
-    },
-    "recipes": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::recipe.recipe",
-      "mappedBy": "saisons"
+        "automne",
+        "hiver"
+      ],
+      "required": true
     }
   }
 }
